@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+<script type="text/javascript">
+function getFullPath(obj) {
+    if (obj) {
+        //Internet Explorer
+        if (window.navigator.userAgent.indexOf("MSIE") >= 1) {
+            obj.select();
+            return document.selection.createRange().text;
+        }
+        //Firefox
+        else if (window.navigator.userAgent.indexOf("Firefox") >= 1) {
+            if (obj.files) {
+                return obj.files.item(0).getAsDataURL();
+            }
+            return obj.value;
+        }
+        return obj.value;
+    }
+}
+
+function getPath(){
+    document.getElementById('myPath').value=document.getElementById('filePath').value;
+}
+
+</script>
+</head>
+<body>
+    <form method="post" action="/filesystem/test/" enctype="multipart/form-data">
+    <input type="file" name="path" id="filePath"/>
+    <input type="submit" onclick="getPath();" value="选择生成路径" />
+    <input type="hidden" name="myPath" id="myPath"/>
+    </form>
+</body>
+</html>
